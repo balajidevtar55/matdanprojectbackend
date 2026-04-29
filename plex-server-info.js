@@ -10,5 +10,5 @@ client.query("/").then(function (result) {
 	// will have the .uri-property attached
 	console.log(result._children);
 }, function (err) {
-	console.error("Could not connect to server", err);
+	console.error("Could not connect to serverssss", err);
 });

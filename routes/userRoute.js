@@ -87,17 +87,17 @@ userRoute.route("/create").post(upload.single("userImage"),async (req, res) => {
 
 // update Records
 
-client.postQuery("/TETS").then(function (result) {
-	console.log("%s running Plex Media Server v%s",
-		result.friendlyName,
-		result.version);
+// client.postQuery("/TETS").then(function (result) {
+// 	console.log("%s running Plex Media Server v%s",
+// 		result.friendlyName,
+// 		result.version);
 
-	// array of children, such as Directory or Server items
-	// will have the .uri-property attached
-	console.log(result._children);
-}, function (err) {
-	console.error("Could not connect to server", err);
-});
+// 	// array of children, such as Directory or Server items
+// 	// will have the .uri-property attached
+// 	console.log(result._children);
+// }, function (err) {
+// 	console.error("Could not connect to serverssss by ref", err);
+// });
 // userRoute.post('/update', async (req, res) => {
 //   try {
 
