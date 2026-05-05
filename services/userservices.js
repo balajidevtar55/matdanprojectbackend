@@ -114,7 +114,7 @@ async function getAlluserList(requestedData) {
       }
     });
 
-   const resp = User.find(requestedData)
+   const resp = User.find(requestedData).sort({ createdAt: -1 });
   return resp;
 }
 

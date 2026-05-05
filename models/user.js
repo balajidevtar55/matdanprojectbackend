@@ -93,6 +93,14 @@ const userSchema = new mongoose.Schema({
         code: String
     },
     cast: String,
+    matdaroption: {
+  id: {
+    type: String
+  },
+  name: {
+    type: String
+  }
+},
     upjat: {
         name: String,
         code: String
@@ -289,7 +297,15 @@ const userSchema = new mongoose.Schema({
         }
     },
     vahanahanedetails: Array,
-    janavarSections:Array
+    janavarSections:Array,
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
 
