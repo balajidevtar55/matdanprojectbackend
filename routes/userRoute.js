@@ -389,7 +389,6 @@ const uploadUsersFromExcel = async (req, res) => {
 
     // 1. Read Excel
     const workbook = XLSX.readFile(req.file.path);
-     console.log("Sheet Names:", workbook.SheetNames);
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
     const rows = XLSX.utils.sheet_to_json(sheet);
 
