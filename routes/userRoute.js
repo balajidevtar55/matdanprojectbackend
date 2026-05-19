@@ -254,21 +254,46 @@ userRoute
   });
 
 // list of records
-userRoute.get("/",async(req,res)=>{
+userRoute.get("/", async (req, res) => {
   try {
-    const userList = await User.find();
+    // Get page and limit from query params
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+
+    // Calculate skip
+    const skip = (page - 1) * limit;
+
+    // Total users count
+    const totalUsers = await User.countDocuments();
+
+    // Fetch paginated users
+    const userList = await User.find()
+      .skip(skip)
+      .limit(limit)
+      .sort({ createdAt: -1 });
+
     res.json({
       responseCode: 200,
       responseStatus: "success",
-      responseMsg: "User List SuccessFully",
+      responseMsg: "User List Successfully",
       responseData: userList,
+
+      pagination: {
+        totalUsers,
+        currentPage: page,
+        totalPages: Math.ceil(totalUsers / limit),
+        limit,
+      },
     });
 
   } catch (error) {
-    res.status(500).json({ error: err.message });
-
+    res.status(500).json({
+      responseCode: 500,
+      responseStatus: "error",
+      responseMsg: error.message,
+    });
   }
-})
+});
 
 //delete of Records
 userRoute.delete("/:id",async(req,res)=>{
