@@ -256,23 +256,28 @@ userRoute
 // list of records
 userRoute.get("/", async (req, res) => {
   try {
-    // Get page and limit from query params
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
+    // Get page and limit
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
 
-    // Calculate skip
+    // Skip calculation
     const skip = (page - 1) * limit;
 
-    // Total users count
+    console.log("page:", page);
+    console.log("limit:", limit);
+    console.log("skip:", skip);
+
+    // Total count
     const totalUsers = await User.countDocuments();
 
-    // Fetch paginated users
-    const userList = await User.find()
+    // Paginated data
+    const userList = await User.find({})
+      .sort({ createdAt: -1, _id: -1 }) // important
       .skip(skip)
       .limit(limit)
-      .sort({ createdAt: -1 });
+      .lean();
 
-    res.json({
+    res.status(200).json({
       responseCode: 200,
       responseStatus: "success",
       responseMsg: "User List Successfully",
@@ -287,6 +292,8 @@ userRoute.get("/", async (req, res) => {
     });
 
   } catch (error) {
+    console.log(error);
+
     res.status(500).json({
       responseCode: 500,
       responseStatus: "error",
